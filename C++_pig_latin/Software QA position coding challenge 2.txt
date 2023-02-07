@@ -1,0 +1,134 @@
+/* I used an online compiler so that you could test the code there as well: https://www.onlinegdb.com/online_c++_compiler */
+// english to Pig Latin translator (Note: This program assumes that the user input is grammatically correct.)
+
+#include <string>
+#include <iostream>
+
+
+using namespace std;
+
+// declare the created functions outside the main function
+string getWord(string &);
+string translatePigLatin(string);
+string trim(string);
+
+int main()
+{
+    // variable to store user input
+    string str; 
+
+    // variable to store pig Latin version of user input
+    string pigLatin; 
+    
+    // ask for user to enter phrase they want to translate to pig latin
+    cout<<"Enter what you want to translate to Pig Latin:"<<endl;
+    getline(cin, str);
+    
+    // translate to pig latin
+    while(str.size() > 0) 
+    {
+        // individually copy each word from the user input and delete it from the sentence/paragraph
+        string word = getWord(str);
+
+        // translate word to pigLatin
+        string pigWord = translatePigLatin(word);
+
+        // add the word to the translated string
+        pigLatin += pigWord + " ";
+    }
+    
+    // display the translation
+    cout <<"The Pig latin version is: \n" <<pigLatin<<endl;
+    
+    
+    return 0;
+}
+
+// function definition for getting one word at a time
+string getWord(string &str)
+{   
+    // trim any spaces from the beginning of the user input
+    str = trim(str);
+
+    /* get the beginning of the word by locating the first space
+    or until the end of the string is reached */
+    int i = 0;
+    while(str[i] != ' ' && i < str.size())
+        i++;
+
+    // i now equals the length of the word
+    // so copy the part of the string from the beginning to the i
+    string word = str.substr(0, i);
+    
+    //delete the word from the string and return the copy
+    str.erase(0, i);
+    return word;
+    
+}
+
+// function definition for deleting any spaces at the beginning of the user input
+string trim(string str)
+{   
+    while(str[0] == ' ')
+        str.erase(0,1);
+
+    //return the trimmed user input
+    return str;
+}
+
+// function definition for translating a word to pig latin
+string translatePigLatin(string word)
+{
+    // check if the first character is a number
+    if(isdigit(word[0]))
+    {
+        // if the word starts with a number, return the word untranslated
+        return word;
+    }
+
+    /* Check for punctuation in the last character of the word.
+    Punctuation in middle or beginning of the word
+    will be translated normally */
+    else if(ispunct(word[word.length() - 1])) 
+    {
+        // store the punctuation
+        char punct = word[word.length() - 1];
+
+        // erase the punctuation from the word
+        word.erase(word.length() - 1, word.length());
+
+        // get the first character
+        char first = word[0];
+
+        /* append the letter to the end of the word,
+	first parameter = # of copies, 2nd param. = char */
+        word.append(1, first);
+
+        // append ay to the end of the word
+        word.append("ay");
+
+        // append the punctuation
+        word.append(1, punct);
+
+        // delete the first character
+        word.erase(0,1);
+        return word;
+    }
+
+    // if the first character is not a number and doesn’t have punctuation at the end, translate normally
+    else 
+    {
+        // get the first character
+        char first = word[0];
+
+        // append the letter to the end of the word
+        word.append(1, first);
+
+        // append “ay” to the end of the word
+        word.append("ay");
+
+        // delete the first character
+        word.erase(0,1);
+        return word;
+    }
+}

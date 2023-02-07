@@ -1,0 +1,43 @@
+/* I used an online compiler so that you could test the code there as well: https://www.onlinegdb.com/online_c++_compiler */
+// takes in a natural number and finds the sum of the multiples of 3 and 5 less than the inputted number
+
+#include <iostream>
+
+using namespace std;
+
+// declare the created function outside the main function
+int problem(int);
+
+int main()
+{
+    // ask user to input an integer
+    cout<<"enter x:"<<endl;
+    int x;
+    cin>>x;
+
+    // call the problem function on the user input to calculate the sum
+    int sum = problem(x);
+
+    // print out the sum
+    cout <<"The sum is: " <<sum<<endl;
+    
+    return 0;
+}
+
+/* function definition for finding the sum of the mulipltes of 3
+and 5 of the user input */
+int problem(int x) 
+{
+    // create a total variable to hold the sum
+    int total = 0;
+    
+    // iterate from 1 to x and add i to the sum if it’s a multiple of 3 or 5
+    for(int i = 1; i < x; i++) {
+        if(i % 3 == 0 || i % 5 == 0){
+            total += i;
+        }
+    }
+
+    // return the sum
+    return total;
+}
