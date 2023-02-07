@@ -1,1 +1,1 @@
-Here, you will find C++ programs I wrote during my college course on c++.
+Here, you will find pretty much all the C++ programs I've written.
